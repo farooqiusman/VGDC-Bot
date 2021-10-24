@@ -19,6 +19,6 @@ client.on("message", msg => {
     }
 
 })
-
+// Hello
 client.login(process.env.DISCORD_TOKEN)
 
