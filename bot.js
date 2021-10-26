@@ -11,13 +11,33 @@ const client = new Client({
 });
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}!`)})
+    const guildId = '880214036917153843'
+    const guild = client.guilds.cache.get(guildId)
+    let commands
+    
+    if(guild){
+        commands = guild.commands
+    }else{
+        commands = client.application?.commands
+    }
+    
+    commands?.create({
+        name: 'ping',
+        description: 'Replies with pong',
+    })
 
-
-client.on("message", msg => {
-    if (msg.content == "ping"){
-        msg.reply("pong")
+client.on('interactionCreate', async (interaction) => {
+    if(!interaction.isCommand()){
+        return
     }
 
+    const {commandName, options} = interaction
+    
+    if(commandName == 'ping'){
+        interaction.reply({
+        content: 'pong',
+        })
+    }
 })
 // Hello
 client.login(process.env.DISCORD_TOKEN)
